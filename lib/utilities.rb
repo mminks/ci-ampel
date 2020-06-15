@@ -8,8 +8,8 @@ module Utilities
     return text.singularize if number == 1
   end
 
-  def send_slack_message(options, message)
-    if options[:slack] == true
+  def send_slack_message(message)
+    if @slack
       channel = "#ampel"
       slack_state_file = ".slack_state"
 

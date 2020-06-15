@@ -1,8 +1,8 @@
-# Jenkins Ampel
+# CI Ampel
 
 **Hint: 'Ampel' is the german word for traffic light.**
 
-This piece of code switches lights, that are physically plugged into a USB controllable wall socket, on or off, depending on failed Jenkins jobs. This project runs on a Raspberry Pi 1 at Consort IT but feel free to use every system where Ruby is available.
+This piece of code switches lights, that are physically plugged into a USB controllable wall socket, on or off, depending on failed Jenkins or Gitlab CI jobs.
 
 It also sends a short message to a pre-defined Slack channel '#ampel' if you want it.
 
@@ -31,16 +31,27 @@ touch .env
 ```
 
 ```
-JENKINS_JOBS_URI=https://your.jenkins.uri
-JENKINS_USER=jenkins-user
-JENKINS_PASS=jenkins-pass
+BASE_URI=https://your.jenkins.or.gitlab.uri.without.a.path
+USER=user
+PASS=password
+TOKEN=123456789
 SLACK_HOOK_URI=https://hooks.slack.com/services/foo/bar
 ```
 
+Remember to specify user and password OR a token. Not all of them at the same time.
+
 Fire it up:
 
+Jenkins:
+
 ```
-bin/ampel
+bin/ampel -j
+```
+
+Gitlab CI:
+
+```
+bin/ampel -g
 ```
 
 If you want to send a message to a Slack channel:
@@ -49,7 +60,7 @@ If you want to send a message to a Slack channel:
 bin/ampel -s
 ```
 
-If you want to use 'Jenkins Ampel' locally (don't switch lights):
+If you want to use 'CI Ampel' locally (don't switch lights):
 
 ```
 bin/ampel -d
@@ -61,11 +72,29 @@ Add a cron job to your system.
 */1 * * * *  ruby /home/pi/ampel/bin/ampel 2>/dev/null
 ```
 
+All options available:
+
+```
+This services switches a controllable USB wall socket depending on a Jenkins or Gitlab failes
+jobs/pipelines status.
+
+Usage: ruby ./ampel.rb [OPTIONS]
+
+Options:
+    -j, --jenkins                    use Jenkins as automation server
+    -g, --gitlab                     use gitlab as automation server
+    -d, --dry-run                    do not switch any lights on or off
+    -s, --slack                      send slack message in case of an failure
+    -h, --help                       help
+```
+
 ## Ouput
 
 ```
 OK: Everything is fine again! Green light is on. :-)
 ```
+
+If you execute `DEBUG=true bin/ampel -g`, 'CI Ampel' will output the names of failing Gitlab CI pipelines.
 
 ## Contribute
 

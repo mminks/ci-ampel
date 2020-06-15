@@ -1,8 +1,8 @@
 module Gitlab
   def setup_gitlab_connection
     Gitlab.configure do |config|
-      config.endpoint = ENV['GITLAB_API_ENDPOINT'] ? ENV['GITLAB_API_ENDPOINT'] : ''
-      config.private_token = ENV['GITLAB_TOKEN'] ? ENV['GITLAB_TOKEN'] : ''
+      config.endpoint = "#{get_uri.scheme}://#{get_uri.host}/api/v4"
+      config.private_token = get_credentials
     end
   end
 
@@ -20,11 +20,17 @@ module Gitlab
             :path_with_namespace => project.path_with_namespace
         } if project.namespace.kind == "group"
       end
+
+      return projects
     rescue => error
       puts "#{error}"
     end
+  end
 
-    projects.each do |project|
+  def failed_pipelines
+    red_pipelines = []
+
+    get_all_gitlab_projects.each do |project|
       id = project[:id]
       name = project[:name]
       namespace = project[:namespace]
@@ -33,10 +39,14 @@ module Gitlab
       if Gitlab.pipelines(id).first
         status = Gitlab.pipelines(id).first.status
 
-        if status == "failed"
-          puts "#{path_with_namespace}: #{status}"
-        end
+        red_pipelines << "#{path_with_namespace}: #{status}" if status == "failed"
       end
     end
+
+    red_pipelines.each do |item|
+      puts item
+    end if ENV['DEBUG']
+
+    return red_pipelines
   end
 end

@@ -17,6 +17,14 @@ Usage: ruby ./ampel.rb [OPTIONS]"
   opts.separator  ""
   opts.separator  "Options:"
 
+  opts.on("-j", "--jenkins", "use Jenkins as automation server") do
+    options[:jenkins] = true
+  end
+
+  opts.on("-g", "--gitlab", "use gitlab as automation server") do
+    options[:gitlab] = true
+  end
+
   opts.on("-d", "--dry-run", "do not switch any lights on or off") do
     options[:dry_run] = true
   end
@@ -34,4 +42,4 @@ end
 opt_parser.parse!
 
 # finally run the code
-Ampel.new.run(options)
+Ampel.new(options).run
