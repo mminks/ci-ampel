@@ -17,7 +17,7 @@ module Jenkins
     end
   end
 
-  def is_jenkins_healthy?
+  def is_healthy?
     return true if get_jenkins_response.to_i == 200
   end
 

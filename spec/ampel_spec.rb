@@ -179,7 +179,7 @@ describe Ampel do
     it 'says that everything is fine if we have no failed jobs' do
       options = {:dry_run=>false}
 
-      allow(subject).to receive(:is_jenkins_healthy?).and_return true
+      allow(subject).to receive(:is_healthy?).and_return true
       allow(subject).to receive(:evaluate_jenkins_job_colors).and_return []
 
       allow(subject).to receive(:toggle_green_light)
@@ -193,7 +193,7 @@ describe Ampel do
     it 'says that we have failed jobs if they exist' do
       options = {:dry_run=>false}
 
-      allow(subject).to receive(:is_jenkins_healthy?).and_return true
+      allow(subject).to receive(:is_healthy?).and_return true
       allow(subject).to receive(:evaluate_jenkins_job_colors).and_return ['foo_job1', 'foo_job2']
 
       allow(subject).to receive(:toggle_green_light)
@@ -207,7 +207,7 @@ describe Ampel do
     it 'says that jenkins is not responding' do
       options = {:dry_run=>false}
 
-      allow(subject).to receive(:is_jenkins_healthy?).and_return false
+      allow(subject).to receive(:is_healthy?).and_return false
 
       allow(subject).to receive(:toggle_green_light)
       allow(subject).to receive(:toggle_red_light)

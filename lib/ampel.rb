@@ -30,7 +30,7 @@ class Ampel
     #
     # exit 0
 
-    if !is_jenkins_healthy?
+    if !is_healthy?
       message = "ALERT: Jenkins is not responding! Red light is on. :-("
 
       toggle_green_light(false, options)
