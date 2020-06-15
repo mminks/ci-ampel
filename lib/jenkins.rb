@@ -1,14 +1,26 @@
 module Jenkins
+  def get_jenkins_jobs_uri
+    ENV['JENKINS_JOBS_URI'] ? URI("#{ENV['JENKINS_JOBS_URI']}/api/json?tree=jobs[name,lastCompletedBuild[number,result]]") : ''
+  end
+
+  def get_jenkins_user
+    ENV['JENKINS_USER'] ? ENV['JENKINS_USER'] : ''
+  end
+
+  def get_jenkins_pass
+    ENV['JENKINS_PASS'] ? ENV['JENKINS_PASS'] : ''
+  end
+
   def get_jenkins_response
     begin
       Net::HTTP.start(
-          JENKINS_JOBS_URI.host,
-          JENKINS_JOBS_URI.port,
-          :use_ssl => JENKINS_JOBS_URI.scheme == 'https',
+          get_jenkins_jobs_uri.host,
+          get_jenkins_jobs_uri.port,
+          :use_ssl => get_jenkins_jobs_uri.scheme == 'https',
           :verify_mode => OpenSSL::SSL::VERIFY_NONE
       ) do |http|
-        request = Net::HTTP::Get.new JENKINS_JOBS_URI.request_uri
-        request.basic_auth JENKINS_USER, JENKINS_PASS
+        request = Net::HTTP::Get.new get_jenkins_jobs_uri.request_uri
+        request.basic_auth get_jenkins_user, get_jenkins_pass
 
         return http.request(request).code
       end

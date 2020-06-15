@@ -21,17 +21,13 @@ class Ampel
   include Jenkins
   include Gitlab
 
-  JENKINS_JOBS_URI = URI("#{ENV['JENKINS_JOBS_URI']}/api/json?tree=jobs[name,lastCompletedBuild[number,result]]")
-  JENKINS_USER = ENV['JENKINS_USER']
-  JENKINS_PASS = ENV['JENKINS_PASS']
-
   def run(options)
     # get_all_gitlab_projects
     #
     # exit 0
 
     if !is_healthy?
-      message = "ALERT: Jenkins is not responding! Red light is on. :-("
+      message = "ALERT: Automation server is not responding! Switching to alarm state. :-("
 
       toggle_green_light(false, options)
       toggle_red_light(true, options)

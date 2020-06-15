@@ -214,7 +214,7 @@ describe Ampel do
 
       expect do
         subject.run(options)
-      end.to output("ALERT: Jenkins is not responding! Red light is on. :-(\n").to_stdout
+      end.to output("ALERT: Automation server is not responding! Switching to alarm state. :-(\n").to_stdout
 
     end
   end
