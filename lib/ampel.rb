@@ -22,10 +22,6 @@ class Ampel
   include Gitlab
 
   def run(options)
-    # get_all_gitlab_projects
-    #
-    # exit 0
-
     if !is_healthy?
       message = "ALERT: Automation server is not responding! Switching to alarm state. :-("
 
@@ -34,7 +30,7 @@ class Ampel
       send_slack_message(options, message)
 
       puts message
-    elsif evaluate_jenkins_job_colors.size == 0
+    elsif failed_jobs_or_pipelines == 0
       message = "OK: Everything is fine again! Green light is on. :-)"
 
       toggle_green_light(true, options)
@@ -43,7 +39,7 @@ class Ampel
 
       puts message
     else
-      message = "ALERT: #{evaluate_jenkins_job_colors.size} failing jenkins #{cpluralize(evaluate_jenkins_job_colors.size, 'job')}! Red light is on. :-("
+      message = "ALERT: #{failed_jobs_or_pipelines} failing jobs or pipelines! Switching to alarm state. :-("
 
       toggle_green_light(false, options)
       toggle_red_light(true, options)
@@ -51,5 +47,9 @@ class Ampel
 
       puts message
     end
+  end
+
+  def failed_jobs_or_pipelines
+    failed_jobs
   end
 end

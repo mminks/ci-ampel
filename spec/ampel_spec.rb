@@ -44,8 +44,7 @@ describe Ampel do
       allow(subject).to receive(:get_jenkins_json_jobs).and_return(jenkins_api_response)
 
       # THEN
-      expect(subject.evaluate_jenkins_job_colors).to eq ["job3"]
-      expect(subject.evaluate_jenkins_job_colors.size).to eq 1
+      expect(subject.failed_jobs_or_pipelines).to eq 1
     end
   end
 
@@ -180,7 +179,7 @@ describe Ampel do
       options = {:dry_run=>false}
 
       allow(subject).to receive(:is_healthy?).and_return true
-      allow(subject).to receive(:evaluate_jenkins_job_colors).and_return []
+      allow(subject).to receive(:failed_jobs_or_pipelines).and_return 0
 
       allow(subject).to receive(:toggle_green_light)
       allow(subject).to receive(:toggle_red_light)
@@ -194,14 +193,14 @@ describe Ampel do
       options = {:dry_run=>false}
 
       allow(subject).to receive(:is_healthy?).and_return true
-      allow(subject).to receive(:evaluate_jenkins_job_colors).and_return ['foo_job1', 'foo_job2']
+      allow(subject).to receive(:failed_jobs_or_pipelines).and_return 2
 
       allow(subject).to receive(:toggle_green_light)
       allow(subject).to receive(:toggle_red_light)
 
       expect do
         subject.run(options)
-      end.to output("ALERT: 2 failing jenkins jobs! Red light is on. :-(\n").to_stdout
+      end.to output("ALERT: 2 failing jobs or pipelines! Switching to alarm state. :-(\n").to_stdout
     end
 
     it 'says that jenkins is not responding' do

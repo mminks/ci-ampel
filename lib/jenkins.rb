@@ -37,7 +37,7 @@ module Jenkins
     JSON.parse(get_jenkins_response.body)['jobs']
   end
 
-  def evaluate_jenkins_job_colors
+  def failed_jobs
     red_jobs = []
 
     get_jenkins_json_jobs.each do |job|
@@ -46,6 +46,6 @@ module Jenkins
       red_jobs << job['name'] if job['lastCompletedBuild']['result'] == 'FAILURE'
     end
 
-    return red_jobs
+    return red_jobs.size
   end
 end
