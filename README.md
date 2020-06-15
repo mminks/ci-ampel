@@ -40,7 +40,7 @@ SLACK_HOOK_URI=https://hooks.slack.com/services/foo/bar
 
 Remember to specify user and password OR a token. Not all of them at the same time.
 
-Fire it up:
+#### Fire it up:
 
 Jenkins:
 
