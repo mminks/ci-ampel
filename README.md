@@ -57,13 +57,13 @@ bin/ampel -g
 If you want to send a message to a Slack channel:
 
 ```
-bin/ampel -s
+bin/ampel -(j|g) -s
 ```
 
 If you want to use 'CI Ampel' locally (don't switch lights):
 
 ```
-bin/ampel -d
+bin/ampel -(j|g) -d
 ```
 
 Add a cron job to your system.
