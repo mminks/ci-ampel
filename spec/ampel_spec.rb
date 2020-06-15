@@ -126,9 +126,9 @@ describe Ampel do
   #   end
   # end
   #
-  
+
   describe '#send_slack_message' do
-    it 'should create a status file called .slack_state' do
+    it 'creates a status file called .slack_state' do
       options = {:slack=>true}
 
       allow(File).to receive(:exists?).with('.slack_state').and_return(false)
@@ -138,7 +138,7 @@ describe Ampel do
       expect(File.exist?('.slack_state')).to be true
     end
 
-    it 'should create a status file called .slack_state with "foo bar" content' do
+    it 'creates a status file called .slack_state with "foo bar" content' do
       options = {:slack=>true}
 
       allow(File).to receive(:exists?).with('.slack_state').and_return(false)
@@ -148,7 +148,7 @@ describe Ampel do
       expect(File.read(".slack_state")).to eq "foo bar"
     end
 
-    it 'should not send a message if current status is equal to last status' do
+    it 'doesn\'t send a message if current status is equal to last status' do
       options = {:slack=>true}
 
       allow(File).to receive(:exists?).with('.slack_state').and_return true
@@ -159,7 +159,7 @@ describe Ampel do
       expect(RestClient).not_to receive(:post)
     end
 
-    it 'should send a message if current status is different from last status' do
+    it 'ssends a message if current status is different from last status' do
       options = {:slack=>true}
 
       allow(File).to receive(:exists?).with('.slack_state').and_return true
@@ -174,6 +174,7 @@ describe Ampel do
     it 'says that everything is fine if we have no failed jobs' do
       options = {:dry_run=>false}
 
+      allow(subject).to receive(:is_jenkins_healthy?).and_return true
       allow(subject).to receive(:evaluate_jenkins_job_colors).and_return []
 
       allow(subject).to receive(:toggle_green_light)
@@ -187,6 +188,7 @@ describe Ampel do
     it 'says that we have failed jobs if they exist' do
       options = {:dry_run=>false}
 
+      allow(subject).to receive(:is_jenkins_healthy?).and_return true
       allow(subject).to receive(:evaluate_jenkins_job_colors).and_return ['foo_job1', 'foo_job2']
 
       allow(subject).to receive(:toggle_green_light)

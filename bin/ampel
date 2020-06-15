@@ -10,7 +10,10 @@ DEFAULT_OPTS = {
 options = DEFAULT_OPTS.clone
 
 opt_parser = OptionParser.new do |opts|
-  opts.banner = "Usage: ruby ampel.rb [OPTIONS]"
+  opts.banner = "This services switches a controllable USB wall socket depending on a Jenkins or Gitlab failes
+jobs/pipelines status.
+
+Usage: ruby ./ampel.rb [OPTIONS]"
   opts.separator  ""
   opts.separator  "Options:"
 

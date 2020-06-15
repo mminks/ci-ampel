@@ -9,3 +9,4 @@ gem 'simplecov', :require => false, :group => :test
 gem 'dotenv'
 gem 'cucumber'
 gem 'rest-client'
+gem 'gitlab'
