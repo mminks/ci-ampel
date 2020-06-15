@@ -49,6 +49,9 @@ GEM
       ffi (>= 1.0.0)
       rake
     formatador (0.2.5)
+    gitlab (4.15.0)
+      httparty (~> 0.14, >= 0.14.0)
+      terminal-table (~> 1.5, >= 1.5.1)
     guard (2.16.2)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -74,6 +77,9 @@ GEM
     http-form_data (2.3.0)
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
+    httparty (0.18.0)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     json (2.3.0)
@@ -88,6 +94,7 @@ GEM
     mime-types-data (3.2020.0512)
     minitest (5.14.1)
     multi_test (0.1.2)
+    multi_xml (0.6.0)
     nenv (0.3.0)
     netrc (0.11.0)
     notiffany (0.1.3)
@@ -131,6 +138,8 @@ GEM
     simplecov-html (0.12.2)
     sys-uname (1.2.1)
       ffi (>= 1.0.0)
+    terminal-table (1.8.0)
+      unicode-display_width (~> 1.1, >= 1.1.1)
     thor (1.0.1)
     thread_safe (0.3.6)
     tzinfo (1.2.7)
@@ -138,6 +147,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    unicode-display_width (1.7.0)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -147,6 +157,7 @@ DEPENDENCIES
   activesupport
   cucumber
   dotenv
+  gitlab
   guard-rspec
   http
   json

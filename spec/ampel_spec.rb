@@ -1,8 +1,12 @@
-require_relative 'spec_helper'
+require_relative '../spec_helper'
+
 require_relative '../lib/ampel'
+require_relative '../lib/gitlab'
+require_relative '../lib/jenkins'
+require_relative '../lib/utilities'
+require_relative '../lib/wall_socket'
 
 describe Ampel do
-
   subject { described_class.new }
 
   describe '#cpluralize' do
@@ -159,11 +163,12 @@ describe Ampel do
       expect(RestClient).not_to receive(:post)
     end
 
-    it 'ssends a message if current status is different from last status' do
+    it 'sends a message if current status is different from last status' do
       options = {:slack=>true}
 
       allow(File).to receive(:exists?).with('.slack_state').and_return true
       allow(File).to receive(:read).with('.slack_state').and_return "foo bar"
+      allow(subject).to receive(:set_slack_hook_uri).and_return "https://foo.bar"
 
       expect(RestClient).to receive(:post)
       subject.send_slack_message(options, "john doe")
@@ -213,5 +218,4 @@ describe Ampel do
 
     end
   end
-
 end
