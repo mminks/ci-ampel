@@ -2,7 +2,7 @@
 
 **Hint: 'Ampel' is the german word for traffic light.**
 
-This piece of code switches lights, that are physically plugged into a USB controllable wall socket, on or off, depending on failed Jenkins or Gitlab CI jobs.
+This piece of code switches lights, that are physically plugged into a USB controllable wall socket, on or off, depending on failed Jenkins jobs or Gitlab CI pipelines.
 
 It also sends a short message to a pre-defined Slack channel '#ampel' if you want it.
 
