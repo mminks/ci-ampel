@@ -18,7 +18,7 @@ module Gitlab
             :name => project.name,
             :namespace => project.namespace.path,
             :path_with_namespace => project.path_with_namespace
-        } if project.namespace.kind == "group"
+        } if project.namespace.kind == "group" && project.archived == "false"
       end
 
       return projects
@@ -36,10 +36,13 @@ module Gitlab
       namespace = project[:namespace]
       path_with_namespace = project[:path_with_namespace]
 
-      if Gitlab.pipelines(id).first
-        status = Gitlab.pipelines(id).first.status
+      begin
+        if Gitlab.pipelines(id).first
+          status = Gitlab.pipelines(id).first.status
 
-        red_pipelines << "#{path_with_namespace}: #{status}" if status == "failed"
+          red_pipelines << "#{path_with_namespace}: #{status}" if status == "failed"
+        end
+      rescue => error
       end
     end
 
