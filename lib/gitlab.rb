@@ -18,7 +18,7 @@ module Gitlab
             :name => project.name,
             :namespace => project.namespace.path,
             :path_with_namespace => project.path_with_namespace
-        } if project.namespace.kind == "group" && project.archived == "false"
+        } if project.namespace.kind == "group" and ! project.archived
       end
 
       return projects
