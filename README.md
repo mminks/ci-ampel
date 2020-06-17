@@ -98,8 +98,8 @@ If you execute `DEBUG=true bin/ampel -g`, 'CI Ampel' will output the names of fa
 
 ## Contribute
 
-![Click here for more information.](CONTRIBUTING.md)
+[Click here for more information.](CONTRIBUTING.md)
 
 ## License
 
-![Click here for more information.](LICENSE)
+[Click here for more information.](LICENSE)
