@@ -1,4 +1,4 @@
-image: ruby:slim
+image: mminks/dind:latest
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -12,14 +12,15 @@ rspec:
   tags:
     - docker
   script:
-    - bundle install
-    - bundle exec rspec
+    - docker build --tag ci-ampel:latest .
+    - docker run ci-ampel:latest bundle exec rspec
 
-#ci-ampel:
-#  stage: build
-#  tags:
-#    - docker
-#  script:
-#    - docker build --pull -f Dockerfile -t $REPOSITORY_URL .
-#    - docker tag $REPOSITORY_URL $REPOSITORY_URL:latest
-#    - docker tag $REPOSITORY_URL $REPOSITORY_URL:$CI_COMMIT_SHA
+ci-ampel:
+  stage: build
+  tags:
+    - docker
+  script:
+    - docker run -e BASE_URI=${BASE_URI} -e TOKEN=${TOKEN} -e SLACK_HOOK_URI=${SLACK_HOOK_URI} -e SLACK_CHANNEL=${SLACK_CHANNEL} ci-ampel:latest /app/bin/ampel -g -d -s
+  only:
+    refs:
+      - master
