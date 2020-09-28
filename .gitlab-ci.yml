@@ -12,7 +12,7 @@ rspec:
   tags:
     - docker
   script:
-    - bundles install
+    - bundle install
     - bundle exec rspec
 
 #ci-ampel:
