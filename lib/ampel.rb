@@ -30,7 +30,7 @@ class Ampel
 
   def run
     if !is_healthy?
-      message = "ALERT: Automation server is not responding! Switching to alarm state. :-("
+      message = "ALERT: Automation server is not responding! Switching to alarm state."
 
       toggle_green_light(false)
       toggle_red_light(true)
@@ -41,18 +41,20 @@ class Ampel
       exit 0
     end
 
+    # save failed jobs or pipelines once in a variable
     failed = result
 
     if failed.size == 0
-      message = "OK: Everything is fine again! Green light is on. :-)"
+      message = "OK: Everything is fine again! Green light is on."
 
       toggle_green_light(true)
       toggle_red_light(false)
-      send_slack_message(message)
+      ### do not send a message if everything is green
+      # send_slack_message(message)
 
       puts message
     else
-      message = "ALERT: #{failed.size} failing jobs or pipelines! Switching to alarm state. :-("
+      message = "ALERT: #{failed.size} failing jobs or pipelines: #{failed.map { |item| item.gsub(/:.*/,'') }.join(", ")}. Switching to alarm state."
 
       toggle_green_light(false)
       toggle_red_light(true)
