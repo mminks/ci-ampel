@@ -16,7 +16,7 @@ rspec:
     - docker run ci-ampel:latest bundle exec rspec
 
 ci-ampel:
-  stage: build
+  stage: run
   tags:
     - docker
   script:
