@@ -1,0 +1,25 @@
+image: ruby:slim
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - test
+  - run
+
+rspec:
+  stage: test
+  tags:
+    - docker
+  script:
+    - bundles install
+    - bundle exec rspec
+
+#ci-ampel:
+#  stage: build
+#  tags:
+#    - docker
+#  script:
+#    - docker build --pull -f Dockerfile -t $REPOSITORY_URL .
+#    - docker tag $REPOSITORY_URL $REPOSITORY_URL:latest
+#    - docker tag $REPOSITORY_URL $REPOSITORY_URL:$CI_COMMIT_SHA
