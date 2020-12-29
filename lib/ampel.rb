@@ -29,8 +29,8 @@ class Ampel
   end
 
   def run
-    if !is_healthy?
-      message = "ALERT: Automation server is not responding! Switching to alarm state."
+    unless is_healthy?
+      message = 'ALERT: Automation server is not responding! Switching to alarm state.'
 
       toggle_green_light(false)
       toggle_red_light(true)
@@ -45,7 +45,7 @@ class Ampel
     failed = result
 
     if failed.size == 0
-      message = "OK: Everything is fine. Green light is on."
+      message = 'OK: Everything is fine. Green light is on.'
 
       toggle_green_light(true)
       toggle_red_light(false)
@@ -92,9 +92,9 @@ class Ampel
 
   def set_auth_parameters(request)
     if @jenkins
-      return request.basic_auth get_jenkins_user, get_jenkins_pass
+      request.basic_auth get_jenkins_user, get_jenkins_pass
     elsif @gitlab
-      return request['Authorization'] = "Bearer #{get_credentials}"
+      request['Authorization'] = "Bearer #{get_credentials}"
     end
   end
 
@@ -119,6 +119,6 @@ class Ampel
   def is_healthy?
     # 200 OK for jenkins
     # 404 NOT FOUND for gitlab
-    return true if get_response.to_i == 200
+    true if get_response.to_i == 200
   end
 end
