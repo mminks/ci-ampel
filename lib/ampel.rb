@@ -45,7 +45,7 @@ class Ampel
     failed = result
 
     if failed.size == 0
-      message = "OK: Everything is fine again! Green light is on."
+      message = "OK: Everything is fine. Green light is on."
 
       toggle_green_light(true)
       toggle_red_light(false)
