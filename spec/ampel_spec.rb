@@ -203,7 +203,7 @@ describe Ampel do
 
         expect do
           subject.run
-        end.to output("OK: Everything is fine again! Green light is on.\n").to_stdout
+        end.to output("OK: Everything is fine. Green light is on.\n").to_stdout
       end
 
       it 'says that we have failed jobs if they exist' do
