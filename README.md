@@ -40,19 +40,31 @@ SLACK_HOOK_URI=https://hooks.slack.com/services/foo/bar
 
 Remember to specify user and password OR a token. Not all of them at the same time.
 
-#### Fire it up:
+### Fire it up:
 
-Jenkins:
+#### Jenkins:
+
+Run the 'CI Ampel' for Jenkins projects:
 
 ```
 bin/ampel -j
 ```
 
-Gitlab CI:
+#### Gitlab CI:
+
+Run the 'CI Ampel' for Gitlab projects:
 
 ```
 bin/ampel -g
 ```
+
+If you want to auto-fix your pipelines by rerunning failed jobs, run:
+
+```
+bin/ampel -g -r
+```
+
+#### Both (Jenkins or Gitlab CI)
 
 If you want to send a message to a Slack channel:
 
@@ -83,10 +95,10 @@ Usage: ruby ./ampel.rb [OPTIONS]
 Options:
     -j, --jenkins                    use Jenkins as automation server
     -g, --gitlab                     use gitlab as automation server
+    -r, --rerun                      rerun failed gitlab jobs
     -d, --dry-run                    do not switch any lights on or off
     -s, --slack                      send slack message in case of an failure
-    -h, --help                       help
-```
+    -h, --help                       help```
 
 ## Ouput
 
