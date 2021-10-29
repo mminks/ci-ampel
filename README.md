@@ -84,7 +84,11 @@ Add a cron job to your system.
 */1 * * * *  ruby /home/pi/ampel/bin/ampel 2>/dev/null
 ```
 
-All options available:
+#### Help
+
+```
+bin/ampel -h
+```
 
 ```
 This services switches a controllable USB wall socket depending on a Jenkins or Gitlab failes
