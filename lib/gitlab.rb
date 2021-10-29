@@ -46,10 +46,27 @@ module Gitlab
       end
     end
 
-    red_pipelines.each do |item|
-      puts item
-    end if ENV['DEBUG']
+    red_pipelines.each do |project_id, description|
+      # show some debug output
+      puts "name: #{description} (project id: #{project_id})" if ENV['DEBUG']
+
+      # automatically rerun last failed job
+      rerun_failed_job(project_id) if @rerun
+    end
 
     return red_pipelines
+  end
+
+  def rerun_failed_job(project_id)
+    job_id = Gitlab.jobs(project_id, { scope: ["failed"] }).first.to_h["id"]
+
+    puts "failed job id is: #{job_id}" if ENV['DEBUG']
+
+    # finally rerun failed job
+    job_retry = Gitlab.job_retry(project_id, job_id)
+
+    if job_retry && ENV['DEBUG']
+      puts "job rerun successfully started with job id: #{job_retry.to_h['id']}"
+    end
   end
 end

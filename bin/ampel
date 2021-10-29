@@ -25,6 +25,10 @@ Usage: ruby ./ampel.rb [OPTIONS]"
     options[:gitlab] = true
   end
 
+  opts.on("-r", "--rerun", "rerun failed gitlab jobs") do
+    options[:rerun] = true
+  end
+
   opts.on("-d", "--dry-run", "do not switch any lights on or off") do
     options[:dry_run] = true
   end

@@ -24,6 +24,7 @@ class Ampel
   def initialize(options)
     @jenkins = options[:jenkins] ? true : false
     @gitlab = options[:gitlab] ? true : false
+    @rerun = options[:rerun] ? true : false
     @dry_run = options[:dry_run] ? true : false
     @slack = options[:slack] ? true : false
   end

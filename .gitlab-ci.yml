@@ -20,7 +20,7 @@ ci-ampel:
   tags:
     - docker
   script:
-    - docker run -e BASE_URI=${BASE_URI} -e TOKEN=${TOKEN} -e SLACK_HOOK_URI=${SLACK_HOOK_URI} -e SLACK_CHANNEL=${SLACK_CHANNEL} ci-ampel:latest /app/bin/ampel -g -d -s
+    - docker run -e BASE_URI=${BASE_URI} -e TOKEN=${TOKEN} -e SLACK_HOOK_URI=${SLACK_HOOK_URI} -e SLACK_CHANNEL=${SLACK_CHANNEL} ci-ampel:latest /app/bin/ampel -g -d -s -r
   only:
     refs:
       - master
