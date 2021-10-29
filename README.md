@@ -99,8 +99,9 @@ Options:
     -d, --dry-run                    do not switch any lights on or off
     -s, --slack                      send slack message in case of an failure
     -h, --help                       help```
+```
 
-## Ouput
+## Output
 
 ```
 OK: Everything is fine again! Green light is on. :-)
