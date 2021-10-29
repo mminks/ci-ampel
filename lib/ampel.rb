@@ -54,7 +54,7 @@ class Ampel
 
       puts message
     else
-      message = "ALERT: #{failed.size} failing jobs or pipelines: #{failed.map { |item| item.gsub(/:.*/,'') }.join(", ")}. Switching to alarm state."
+      message = "ALERT: #{failed.size} failing jobs or pipelines: #{failed.map { |id, description| description }.join(", ")}. Switching to alarm state."
 
       toggle_green_light(false)
       toggle_red_light(true)

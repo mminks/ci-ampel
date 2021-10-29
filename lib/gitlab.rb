@@ -28,19 +28,19 @@ module Gitlab
   end
 
   def failed_pipelines
-    red_pipelines = []
+    red_pipelines = {}
 
     get_all_gitlab_projects.each do |project|
       id = project[:id]
-      name = project[:name]
-      namespace = project[:namespace]
       path_with_namespace = project[:path_with_namespace]
 
       begin
         if Gitlab.pipelines(id).first
           status = Gitlab.pipelines(id).first.status
 
-          red_pipelines << "#{path_with_namespace}: #{status}" if status == "failed"
+          if status == "failed"
+            red_pipelines[id] = path_with_namespace
+          end
         end
       rescue => error
       end

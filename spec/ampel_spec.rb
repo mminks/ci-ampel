@@ -208,7 +208,7 @@ describe Ampel do
 
       it 'says that we have failed jobs if they exist' do
         allow(subject).to receive(:is_healthy?).and_return true
-        allow(subject).to receive(:result).and_return ["job3", "job8"]
+        allow(subject).to receive(:result).and_return({ 76=>"job3", 61=>"job8" })
 
         allow(subject).to receive(:toggle_green_light)
         allow(subject).to receive(:toggle_red_light)
