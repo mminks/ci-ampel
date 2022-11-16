@@ -10,7 +10,7 @@ DEFAULT_OPTS = {
 options = DEFAULT_OPTS.clone
 
 opt_parser = OptionParser.new do |opts|
-  opts.banner = "This services switches a controllable USB wall socket depending on a Jenkins or Gitlab failes
+  opts.banner = "This services switches a controllable USB wall socket depending on a Jenkins or GitLab failes
 jobs/pipelines status.
 
 Usage: ruby ./ampel.rb [OPTIONS]"
@@ -21,11 +21,15 @@ Usage: ruby ./ampel.rb [OPTIONS]"
     options[:jenkins] = true
   end
 
-  opts.on("-g", "--gitlab", "use gitlab as automation server") do
+  opts.on("-g", "--gitlab", "use GitLab as automation server") do
     options[:gitlab] = true
   end
 
-  opts.on("-r", "--rerun", "rerun failed gitlab jobs") do
+  opts.on("-m", "--master", "watches master branches only (only valid for GitLab)") do
+    options[:master] = true
+  end
+
+  opts.on("-r", "--rerun", "rerun failed GitLab jobs") do
     options[:rerun] = true
   end
 

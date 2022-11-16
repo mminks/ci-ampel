@@ -35,11 +35,23 @@ module Gitlab
       path_with_namespace = project[:path_with_namespace]
 
       begin
-        if Gitlab.pipelines(id).first
-          status = Gitlab.pipelines(id).first.status
+        if @master
+            Gitlab.pipelines(id).each do |pipeline|
+              next if pipeline.ref != "master"
 
-          if status == "failed"
-            red_pipelines[id] = path_with_namespace
+              break if pipeline.status.match(/success|manual/)
+
+              if pipeline.status == "failed"
+                red_pipelines[id] = path_with_namespace
+
+                break
+              end
+            end
+        else
+          if Gitlab.pipelines(id).first
+            if Gitlab.pipelines(id).first.status == "failed"
+              red_pipelines[id] = path_with_namespace
+            end
           end
         end
       rescue => error
